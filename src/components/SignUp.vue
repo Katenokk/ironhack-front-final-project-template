@@ -19,7 +19,7 @@
 
             <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
                 <p class="text-center text-3xl">Welcome to the to-do app!</p>
-                <form class="flex flex-col pt-3 md:pt-8" @submit.prevent="signUp(email, password)">
+                <form class="flex flex-col pt-3 md:pt-8" @submit.prevent="isValid()">
                     <div class="flex flex-col pt-4">
                         <label for="email" name="email" class="text-lg">Email</label>
                         <input v-model="email" type="email" id="email" placeholder="your@email.com" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
@@ -33,12 +33,13 @@
                         <label for="repPassword" class="text-lg">Repeat password</label>
                         <input v-model="repeatPassword" name="repeatPassword" type="password" id="repPassword" placeholder="repeat password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                     </div>
-    
+                    <p class=".text-red">
+                            {{ errorMsg }}
+                    </p>
+        
                     <input type="submit" value="Sign Up" class="bg-black  font-bold text-lg hover:bg-gray-700 p-2 mt-8">
                 </form>
-                <div class="text-center pt-12 pb-12">
-                    <p>Do you have an account? <a href="#" class="underline font-semibold">Sign in here.</a></p>
-                </div>
+
             </div>
 
         </div>
@@ -62,27 +63,58 @@ export default {
         return {
             email: "",
             password: "",
-            repeatPassword: ""
+            repeatPassword: "",
+            errorMsg: ""
         }
     },
     computed: {
         ...mapStores(useUserStore)
     },
     methods: {
-       
+        
         async signUp(email, password) {
             this.email = email;
             this.password = password;
-                console.log(this.email)
             try {
-            await this.userStore.signUp(this.email, this.password);//no va de ninguna forma
+            await this.userStore.signUp(this.email, this.password);
            
-            router.push({ path: '/' }); //hay que poner this.router?
+            router.push({ path: '/' }); 
             }
         
-        catch(error) {
+            catch(error) {
             console.log("error");
             }  
+        },
+        //comprobaciones entrada datos usuario:
+        isValid() {
+            if (this.checkEmail(this.email) && this.checkPassword(this.password, this.repeatPassword)) {
+                console.log("todo correcto");
+                this.signUp(this.email, this.password);
+            } else {
+                console.log(this.errorMsg)
+            }
+
+
+        },
+        checkEmail(email) {
+            this.email = email;
+            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+                     return true;
+                }
+                    else {
+                        this.errorMsg ="please enter a valid email";
+            }
+        },
+        checkPassword(password, repeatPassword) {
+            this.password = password;
+            this.repeatPassword = repeatPassword;
+            if (password.length<6) { //añadir regex para letras y números? y arreglar el mostacho
+                this.errorMsg = "the password must have at least 6 characters";
+            } else if (password !== repeatPassword) {
+                this.errorMsg = "please type the correct password";
+            } else {
+                return true;
+            }
         }
         
     }
