@@ -6,9 +6,12 @@ import { supabase } from "../supabase";
 export const useUserStore = defineStore("user", {
   state: () => ({
     user: null,
+    //email: ''
+    
   }),
 
   actions: {
+    
     async fetchUser() {
       const user = await supabase.auth.user();
       this.user = user;
@@ -20,6 +23,8 @@ export const useUserStore = defineStore("user", {
       });
       if (error) throw error;
       if (user) this.user = user;
+        //this.email = email;
+      
     },
     // Hacer sign in
     async signIn(email, password) {
@@ -29,6 +34,7 @@ export const useUserStore = defineStore("user", {
       });
       if (error) throw error;
       if (user) this.user = user;
+     // this.email = email;
     },
     // Hacer log out ----- ¿bien?
     async signOut() {
@@ -46,4 +52,5 @@ export const useUserStore = defineStore("user", {
       ],
     },
   },
+ 
 });

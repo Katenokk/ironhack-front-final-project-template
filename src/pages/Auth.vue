@@ -16,8 +16,6 @@
     </p>
   </div>
 
-  <!-- <button v-if="!signedIn" @click="signedIn=true">click here to sign up</button> -->
-  <!-- <button v-if="signedIn" @click="signedIn=false">click here to sign in</button> -->
 </template>
 
 <script>

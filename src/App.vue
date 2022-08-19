@@ -1,18 +1,19 @@
 <template>
   <section>
+    <Nav/>
     <AppHeader/>
     <router-view class="app-main" />
-    <Nav/>
+    
   </section>
 </template>
 
 <script setup>
 import AppHeader from "./components/AppHeader.vue";
 import Nav from "./components/Nav.vue";
-import { onMounted } from 'vue'
-import { storeToRefs } from 'pinia'
-import { useRouter } from 'vue-router'
-import { useUserStore } from './store/user.js'
+import { onMounted } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useRouter } from 'vue-router';
+import { useUserStore } from './store/user.js';
  
 const router = useRouter()
 const userStore = useUserStore()
@@ -32,4 +33,5 @@ onMounted(async () => {
     console.log(e)
   }
 })
-</script>  
+
+</script>
