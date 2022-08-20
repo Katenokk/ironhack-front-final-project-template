@@ -1,5 +1,5 @@
 <template>
-  <div>Auth page:</div>
+  
   <SignIn v-if="!signedIn"/>
   
   <SignUp v-if="signedIn"/>

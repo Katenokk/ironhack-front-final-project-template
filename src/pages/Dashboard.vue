@@ -1,5 +1,5 @@
 <template>
-  <div>Welcome to your dashboard!  {{ userStore.user.email }}</div> 
+  <div >Welcome to your dashboard!  {{ userStore.user.email }}</div> 
   <button class="bg-slate-600 p-2 border-2 rounded text-teal border-teal" @click="signOut">Log out</button>
 <br/>  
 <div class="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans">
@@ -39,7 +39,7 @@ import NewTask from '../components/NewTask.vue';
 import router from "../router";
 import { useUserStore } from "../store/user";
 import { useTaskStore } from "../store/task";
-import { mapStores } from 'pinia';
+//import { mapStores } from 'pinia'; --funciona con el setup!
 
 export default {
   setup() {
@@ -68,7 +68,7 @@ export default {
             }
         
         catch(error) {
-            console.log("error");
+            console.log(`Error: ${error}`);
             }  
       },
       async fetchTasks() {
@@ -78,7 +78,7 @@ export default {
           console.log(tasks)
         }
         catch(error) {
-            console.log("error");
+            console.log(`Error: ${error}`);
             } 
       }
     },

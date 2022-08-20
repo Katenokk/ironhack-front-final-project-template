@@ -35,8 +35,23 @@ export const useTaskStore = defineStore("tasks", {
       .match({ id: taskId })
       await this.fetchTasks() 
     },
-
     // Hacer el PUT (edit)
+    async saveTask(title, taskId) {
+      await supabase
+      .from("tasks")
+      .update({ title: title })
+      .match({ id: taskId })
+      await this.fetchTasks()
+    },
     // Hacer el PUT (cambiar entre completada y pendiente)
+    async changeTask(isDone, taskId) {
+      await supabase
+      .from("tasks")
+      .update({ is_complete: isDone }) //??????
+      .match({ id: taskId })
+      await this.fetchTasks()
+
+    }
+    
   },
 });
