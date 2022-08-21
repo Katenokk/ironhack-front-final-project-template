@@ -1,4 +1,5 @@
 <template>
+<h2 v-if="taskStore.loading">Loading...</h2>
   <div >Welcome to your dashboard!  {{ userStore.user.email }}</div> 
   <button class="bg-slate-600 p-2 border-2 rounded text-teal border-teal" @click="signOut">Log out</button>
 <br/>  
@@ -7,25 +8,17 @@
         <div class="mb-4">
             <h1 class="text-grey-darkest">Todo List</h1>
             <NewTask/>
-            <!-- <div class="flex mt-4">
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker" placeholder="Add new task">
-                <button class="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal">Add</button>
-            </div> -->
         </div>
-        <div>
-           <TaskItem v-for="task in taskStore.tasks" :key="task.id" :taskId="task.id" :title="task.title"/>
-        
-         
-            <!-- <div class="flex mb-4 items-center">
-                <p class="w-full text-grey-darkest">Ejemplo</p>
-                <button class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green border-green hover:bg-green">Done</button>
-                <button class="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red">Remove</button>
-            </div> -->
-          	<!-- <div class="flex mb-4 items-center">
-                <p class="w-full line-through text-green">Ejemplo 2</p>
-                <button class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-grey border-grey hover:bg-grey">Not Done</button>
-                <button class="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red">Remove</button>
-            </div> -->
+        <div class="prueba">
+          <!-- lista de tareas no completadas -->
+          <p class="not-finished">Stuff I have to do:</p>
+           <TaskItem v-for="task in taskStore.pendingTasks" :key="task.id" :taskId="task.id" :title="task.title"/>
+           
+           <!-- lista de tareas completadas -->
+           <p class="finished">Stuff I've done:</p>
+           <CompletedTask v-for="task in taskStore.completedTasks" :key="task.id" :taskId="task.id" :title="task.title"/>
+           <!-- también funciona con un filter directo!! -->
+           <!-- <TaskItem v-for="task in taskStore.tasks.filter(t => t.is_complete === true)" :key="task.id" :taskId="task.id" :title="task.title"/> -->
         </div>
     </div>
 </div>
@@ -36,6 +29,7 @@
 <script>
 import TaskItem from '../components/TaskItem.vue'
 import NewTask from '../components/NewTask.vue';
+import CompletedTask from "../components/CompletedTask.vue"
 import router from "../router";
 import { useUserStore } from "../store/user";
 import { useTaskStore } from "../store/task";
@@ -49,20 +43,41 @@ export default {
   },
   components: {
     TaskItem, 
-    NewTask
+    NewTask,
+    CompletedTask
+  },
+  data() {
+    return {
+      taskList: null,
+      
+    }
   },
   // computed: {
-  //       ...mapStores(useUserStore),
-  //       ...mapStores(useTaskStore)
+  //      completedTasks: async function() {
+       
+  //       this.taskList = await this.taskStore.tasks;
+  //       //this.taskList = JSON.parse(JSON.stringify(this.taskList));
+  //       console.log(this.taskList) //null!! y luego "proxy no se que"
+  //       //console.log(JSON.parse(JSON.stringify(this.taskList))); //OK!!
+
+        
+  //       //return this.taskList.filter( (task) => task.is_complete);
+  //      }
   //   },
-  mounted() {
-      this.taskStore.fetchTasks()
-      console.log(this.userStore)
+  mounted() { //ggg
+      this.taskStore.fetchTasks()  // pero funciona!
+      
+      console.log(this.taskStore.fetchTasks()); //"promise pending"
+      console.log(this.taskStore.tasks) // proxy o null según le dé 
+      console.log(this.userStore.user.email) // si sale el email!!
+      
+   
     },
   methods: {
       async signOut() {
         try {
             await this.userStore.signOut();
+            
            
             router.push({ path: '/auth' }); 
             }
@@ -71,9 +86,9 @@ export default {
             console.log(`Error: ${error}`);
             }  
       },
-      async fetchTasks() {
+      async fetchTasks() { // esta función nunca ha hecho nada!!!
         try {
-          await this.taskStore.fecthTasks();
+          await this.taskStore.fetchTasks();
           this.tasks = tasks;
           console.log(tasks)
         }
@@ -88,5 +103,12 @@ export default {
 </script>
 
 <style>
-
+.finished {
+  color: blue;
+  font-weight: bold;
+}
+.not-finished {
+  color: red;
+  font-weight: bold;
+}
 </style>

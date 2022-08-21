@@ -1,5 +1,5 @@
 <template>
- 
+ poner algo en el header
 </template>
 
 <script>

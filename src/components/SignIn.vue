@@ -4,6 +4,7 @@
         <div class="w-full md:w-1/2 flex flex-col">
             <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
                 <p class="text-center text-3xl">Welcome to the to-do app!</p>
+                <p>Para entrar: usuario: katia.obr@gmail.com , password: 123456 . Pasen y vean</p>
                 <form class="flex flex-col pt-3 md:pt-8" @submit.prevent="signIn(email, password)">
                     <div class="flex flex-col pt-4">
                         <label for="email" name="email" class="text-lg">Email</label>
