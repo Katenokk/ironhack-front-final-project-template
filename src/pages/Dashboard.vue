@@ -1,6 +1,6 @@
 <template>
 <h2 v-if="taskStore.loading">Loading...</h2>
-  <div >Welcome to your dashboard!  {{ userStore.user.email }}</div> 
+  <div >Welcome to your dashboard  {{ userStore.user.email }}!</div> 
   <button class="bg-slate-600 p-2 border-2 rounded text-teal border-teal" @click="signOut">Log out</button>
 <br/>  
 <div class="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans">
@@ -9,6 +9,8 @@
             <h1 class="text-grey-darkest">Todo List</h1>
             <NewTask/>
         </div>
+        <!-- mensaje de "todas las tareas completadas" -->
+        <p v-if="taskStore.pendingTasks.length === 0"> {{ allCompleted }} </p>
         <div class="prueba">
           <!-- lista de tareas no completadas -->
           <p class="not-finished">Stuff I have to do:</p>
@@ -17,6 +19,7 @@
            <!-- lista de tareas completadas -->
            <p class="finished">Stuff I've done:</p>
            <CompletedTask v-for="task in taskStore.completedTasks" :key="task.id" :taskId="task.id" :title="task.title"/>
+            <button @click="deleteAllCompleted" class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green border-green hover:bg-green"> Delete all </button>
            <!-- también funciona con un filter directo!! -->
            <!-- <TaskItem v-for="task in taskStore.tasks.filter(t => t.is_complete === true)" :key="task.id" :taskId="task.id" :title="task.title"/> -->
         </div>
@@ -33,7 +36,6 @@ import CompletedTask from "../components/CompletedTask.vue"
 import router from "../router";
 import { useUserStore } from "../store/user";
 import { useTaskStore } from "../store/task";
-//import { mapStores } from 'pinia'; --funciona con el setup!
 
 export default {
   setup() {
@@ -49,36 +51,18 @@ export default {
   data() {
     return {
       taskList: null,
+      allCompleted: "Yay! You've completed all your tasks!"
       
     }
   },
-  // computed: {
-  //      completedTasks: async function() {
-       
-  //       this.taskList = await this.taskStore.tasks;
-  //       //this.taskList = JSON.parse(JSON.stringify(this.taskList));
-  //       console.log(this.taskList) //null!! y luego "proxy no se que"
-  //       //console.log(JSON.parse(JSON.stringify(this.taskList))); //OK!!
-
-        
-  //       //return this.taskList.filter( (task) => task.is_complete);
-  //      }
-  //   },
-  mounted() { //ggg
-      this.taskStore.fetchTasks()  // pero funciona!
-      
-      console.log(this.taskStore.fetchTasks()); //"promise pending"
-      console.log(this.taskStore.tasks) // proxy o null según le dé 
-      console.log(this.userStore.user.email) // si sale el email!!
-      
+  mounted() { 
+      this.taskStore.fetchTasks();  // pero funciona!
    
     },
   methods: {
       async signOut() {
         try {
             await this.userStore.signOut();
-            
-           
             router.push({ path: '/auth' }); 
             }
         
@@ -86,16 +70,20 @@ export default {
             console.log(`Error: ${error}`);
             }  
       },
-      async fetchTasks() { // esta función nunca ha hecho nada!!!
-        try {
-          await this.taskStore.fetchTasks();
-          this.tasks = tasks;
-          console.log(tasks)
-        }
-        catch(error) {
-            console.log(`Error: ${error}`);
-            } 
+      deleteAllCompleted() {
+        this.taskStore.completedTasks.forEach( t => this.taskStore.deleteTask(t.id))
       }
+     
+      // async fetchTasks() { // esta función nunca ha hecho nada!!! se llama desde el store
+      //   try {
+      //     await this.taskStore.fetchTasks();
+      //     this.tasks = tasks;
+      //     console.log(tasks)
+      //   }
+      //   catch(error) {
+      //       console.log(`Error: ${error}`);
+      //       } 
+      // }
     },
     
 }

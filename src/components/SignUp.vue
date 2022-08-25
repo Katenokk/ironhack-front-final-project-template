@@ -1,17 +1,5 @@
 <template>
 
-   <!-- <form @submit.prevent="signUp(email, password)">
-    <label for="email">Enter your e-mail</label>
-    <input type="e-mail" placeholder="e-mail" id="email" v-model="email" name="email">
-    <br>
-    <label for="password">Enter your password</label>
-    <input type="password" placeholder="password" id="password" v-model="password" name="password">
-    <br>
-    <label for="repeatPassword">Repeat your password</label>
-    <input type="password" placeholder="repeat your password" id="repeatPassword" v-model="repeatPassword" name="repeatPassword">
-    <br>
-    <button type="submit">Sign Up</button>
-  </form> -->
   <div class="w-full flex flex-wrap">
 
         <div class="w-full md:w-1/2 flex flex-col">
@@ -33,9 +21,10 @@
                         <label for="repPassword" class="text-lg">Confirm password</label>
                         <input required v-model="repeatPassword" name="repeatPassword" type="password" id="repPassword" placeholder="confirm password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                     </div>
-                    <p class="text-red">
+                    <p v-if="errorMsg" class="text-red">
                             {{ errorMsg }}
                     </p>
+                   
                   
             
         
@@ -61,12 +50,14 @@ export default {
     // const user = useUserStore();
     // return { user };
     // },
+   
     data() {
         return {
             email: null,
             password: null,
             repeatPassword: null,
-            errorMsg: null
+            errorMsg: null,
+           
         }
     },
     computed: {
@@ -80,11 +71,14 @@ export default {
             try {
             await this.userStore.signUp(this.email, this.password);
            
-            router.push({ path: '/' }); 
+            router.push({ path: '/auth' }); //tiene que ir a la ventana de sign in despues de crear el usurio
+            this.$router.go(); //refresca
+            
+            
             }
          
             catch(error) {
-            console.log("error");
+            console.log(error);
             } 
             //falta otro error?? 
         },
@@ -93,6 +87,7 @@ export default {
             if (this.checkEmail(this.email) && this.checkPassword(this.password, this.repeatPassword)) {
                 console.log("todo correcto");
                 this.signUp(this.email, this.password);
+                this.$emit("welcome");
             } else {
                 console.log(this.errorMsg)
             }

@@ -1,10 +1,11 @@
 <template>
-
+   
     <div  class="flex mb-4 items-center">
                 <!-- <p v-if="statusMsg" class="status-msg"> {{ statusMsg }}</p> -->
                 
                 <p v-if="errorMsg"> {{ errorMsg }}</p>
-                <p v-if="!isEditing" class="position w-full text-grey-darkest" :class="{complete: isActive}"> {{ title }}  
+                <p v-if="!isEditing" class="position w-full text-grey-darkest"> {{ title }}  
+                <!-- no sé si necesito esto -->
                 <span v-if="statusMsg" class="status-msg">
                     {{ statusMsg }}
                 </span>
@@ -13,7 +14,6 @@
                
                 <button @click="editTask" class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green border-green hover:bg-green">Edit</button>
                 <button @click="saveTask" class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green border-green hover:bg-green">Save</button>
-                <!-- <button v-if="!done" @click="isComplete" class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green border-green hover:bg-green">Done</button> -->
                 <button @click="isComplete" class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green border-green hover:bg-green">To do</button>
                 <button  @click="deleteTask" class="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red">Remove</button>
     </div>
@@ -22,7 +22,7 @@
 <script> 
 import { useUserStore } from "../store/user";
 import { useTaskStore } from "../store/task";
-// import { mapStores } from 'pinia';
+
 export default {
     setup() {
     const userStore = useUserStore();
@@ -32,9 +32,7 @@ export default {
   data() {
     return {
         isEditing: false,
-        done: false,
-        isDone: false,
-        isActive: false,
+        isDone: true,
         statusMsg: null,
         errorMsg: null
     }
@@ -44,10 +42,6 @@ export default {
         title: String,
         taskId: Number,
     },
-    //  computed: {
-    //     ...mapStores(useUserStore),
-    //     ...mapStores(useTaskStore)
-    // },
     methods: {
         async deleteTask() {
             await this.taskStore.deleteTask(this.taskId) 
@@ -60,7 +54,8 @@ export default {
                 this.isEditing = !this.isEditing;
             }
             catch(error) {
-                console.log(`Error: ${error}`);
+                console.log(error);
+                this.errorMsg = error;
             }
         },
         editTask() {
@@ -70,14 +65,12 @@ export default {
             try {
                 this.done = !this.done; //cambia el v-if del boton
                 this.isDone = !this.isDone; //cambia el is_complete a true
-                //this.isActive = !this.isActive; //cambia la clase active
-                //this.statusMsg = "your task is complete!";
                 await this.taskStore.changeTask(this.isDone, this.taskId);
-                //this.statusMsg = null; //se queda como 1 segundo
                 
             }
             catch(error) {
-                console.log(`Error: ${error}`);
+                console.log(error);
+                this.errorMsg = error;
             }
         }
     }
@@ -85,10 +78,7 @@ export default {
 </script>
 
 <style>
-.complete {
-    text-decoration: line-through;
-    color: red;
-}
+
 .position {
     position: relative;
 }

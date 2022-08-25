@@ -1,11 +1,12 @@
 <template>
+<p v-if="statusMsg"> {{ statusMsg }}</p>
+<p v-if="errorMsg"> {{ errorMsg }}</p>
    <div class="flex mt-4">
-                <p v-if="statusMsg"> {{ statusMsg }}</p>
-                <p v-if="errorMsg"> {{ errorMsg }}</p>
+                
                 <input 
                 v-model="taskname"
                 class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker" placeholder="Add new task">
-                <button @click="addTask" class="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal">Add</button>
+                <button @click="callAddTask" class="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal">Add</button>
             </div>
 </template>
 
@@ -32,12 +33,28 @@ export default {
     },
 
 methods: {
+
+    callAddTask() {
+         if (this.taskname == null || this.taskname.length === 0) {
+            this.errorMsg = "Please enter a task"; //poner setTimeOut
+            setTimeout(() => {this.errorMsg = null}, 1000);
+            
+          } else {
+            this.addTask(this.taskname, this.userStore.user.id);
+            console.log(this.taskname)
+
+
+          }
+
+    },
     async addTask() {
+       
         
-        console.log(this.taskname)
         try {
+            
           await this.taskStore.addTask(this.taskname, this.userStore.user.id);
           this.taskname = null;
+          
           
         }
         catch(error) {

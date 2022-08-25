@@ -18,7 +18,7 @@
                    
                     <input type="submit" value="Sign In" class="bg-black  font-bold text-lg hover:bg-gray-700 p-2 mt-8">
                 </form>
-              
+               <p v-if="errorMsg"> {{ errorMsg }}</p>
             </div>
 
         </div>
@@ -34,7 +34,8 @@ export default {
     data() {
         return {
             email: null,
-            password: null
+            password: null,
+            errorMsg: null
         }
     },
     computed: {
@@ -50,7 +51,9 @@ export default {
             }
         
         catch(error) {
-            console.log("error");
+            console.log(error.message);
+            this.errorMsg = error.message;
+        
             }  
         }
         
