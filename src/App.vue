@@ -1,19 +1,19 @@
 <template>
-  <section>
-    <Nav/>
+  <section class="bg-slate-100">
+   
     <AppHeader/>
     <router-view class="app-main" />
-    
+    <Footer/>
   </section>
 </template>
 
 <script setup>
 import AppHeader from "./components/AppHeader.vue";
-import Nav from "./components/Nav.vue";
 import { onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
 import { useUserStore } from './store/user.js';
+import Footer from "./components/Footer.vue";
  
 const router = useRouter()
 const userStore = useUserStore()

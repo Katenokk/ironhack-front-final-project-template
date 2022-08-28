@@ -1,28 +1,68 @@
 <template>
-<h2 v-if="taskStore.loading">Loading...</h2>
-  <div >Welcome to your dashboard  {{ userStore.user.email }}!</div> 
-  <button class="bg-slate-600 p-2 border-2 rounded text-teal border-teal" @click="signOut">Log out</button>
-<br/>  
+ <Nav/>
+ <div class="text-center">
+  <h2 v-if="taskStore.loading">Loading...</h2>
+  <div class="mt-4">Welcome to your dashboard <span class="text-purple-600"> {{ userStore.user.email }} </span>  !</div> 
+ </div>
+ 
+  
+
 <div class="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans">
-	<div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
+	<div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 xl:max-w-4xl">
         <div class="mb-4">
             <h1 class="text-grey-darkest">Todo List</h1>
             <NewTask/>
         </div>
-        <!-- mensaje de "todas las tareas completadas" -->
-        <p v-if="taskStore.pendingTasks.length === 0"> {{ allCompleted }} </p>
-        <div class="prueba">
-          <!-- lista de tareas no completadas -->
-          <p class="not-finished">Stuff I have to do:</p>
-           <TaskItem v-for="task in taskStore.pendingTasks" :key="task.id" :taskId="task.id" :title="task.title"/>
+        
+        <!-- <div class="flex  flex-col md:flex-row  md:justify-between" > -->
+        <!-- <div class="grid grid-cols-1 md:grid-cols-2 gap-4" >
+         
+          <div>
+            <p class="text-red-400">Pending:</p>
+            <div class="flex flex-col-reverse">
+           <p v-if="taskStore.pendingTasks.length === 0"> {{ allCompleted }} </p>
+            <TaskItem  v-for="task in taskStore.pendingTasks" :key="task.id" :taskId="task.id" :title="task.title"/>
+             
+            </div>
+          </div>
            
-           <!-- lista de tareas completadas -->
-           <p class="finished">Stuff I've done:</p>
-           <CompletedTask v-for="task in taskStore.completedTasks" :key="task.id" :taskId="task.id" :title="task.title"/>
-            <button @click="deleteAllCompleted" class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green border-green hover:bg-green"> Delete all </button>
-           <!-- también funciona con un filter directo!! -->
-           <!-- <TaskItem v-for="task in taskStore.tasks.filter(t => t.is_complete === true)" :key="task.id" :taskId="task.id" :title="task.title"/> -->
-        </div>
+          
+           <div>
+              <p class="text-green-700">Completed:</p>
+              <div class="flex flex-col-reverse">
+              <CompletedTask v-for="task in taskStore.completedTasks" :key="task.id" :taskId="task.id" :title="task.title"/>
+              </div>
+           </div>     
+        </div> -->
+
+         <!-- prueba con divider -->
+           <div class="flex flex-col w-full lg:flex-row">
+              <div class="grid flex-grow min-h-fit card bg-base-200 rounded-box place-items-strech p-4">
+                <div>
+            <p class="text-red-400">Pending:</p>
+           
+            <div class="flex flex-col-reverse">
+               <p v-if="taskStore.loading">Loading...</p>
+           <p v-else-if="taskStore.pendingTasks.length === 0"> {{ allCompleted }} </p>
+            <TaskItem  v-for="task in taskStore.pendingTasks" :key="task.id" :taskId="task.id" :title="task.title"/>
+            </div>
+
+          </div>
+
+                </div> 
+              <div class="divider lg:divider-horizontal"></div> 
+              <div class="grid flex-grow min-h-fit card bg-base-200 rounded-box place-items-strech p-4">
+                 <div>
+              <p class="text-green-700">Completed:</p>
+              <p v-if="taskStore.loading">Loading...</p>
+              <div class="flex flex-col-reverse">
+              <CompletedTask v-for="task in taskStore.completedTasks" :key="task.id" :taskId="task.id" :title="task.title"/>
+              </div>
+           </div>
+                </div>
+          </div>
+
+         <button @click="deleteAllCompleted" class="btn btn-outline btn-success btn-sm float-right mt-4"> Clear completed tasks </button>
     </div>
 </div>
  
@@ -30,6 +70,7 @@
 </template>
 
 <script>
+import Nav from "../components/Nav.vue";
 import TaskItem from '../components/TaskItem.vue'
 import NewTask from '../components/NewTask.vue';
 import CompletedTask from "../components/CompletedTask.vue"
@@ -46,12 +87,13 @@ export default {
   components: {
     TaskItem, 
     NewTask,
-    CompletedTask
+    CompletedTask,
+    Nav
   },
   data() {
     return {
       taskList: null,
-      allCompleted: "Yay! You've completed all your tasks!"
+      allCompleted: "Well done! You've completed all your tasks!"
       
     }
   },
@@ -91,12 +133,7 @@ export default {
 </script>
 
 <style>
-.finished {
-  color: blue;
-  font-weight: bold;
-}
-.not-finished {
-  color: red;
-  font-weight: bold;
+button {
+  margin-right: 0%; /*no se va a la derecha*/ 
 }
 </style>

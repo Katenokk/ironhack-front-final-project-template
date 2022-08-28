@@ -4,12 +4,25 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    
+
     <title>My To Do App</title>
   </head>
   <body>
   
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
+    <!-- modal element -->
+    <input type="checkbox" id="my-modal" class="modal-toggle" />
+    <div class="modal">
+  <div class="modal-box">
+   
+    <p class="py-4">Please check your inbox and confirm your account</p>
+    <div class="modal-action">
+      <label for="my-modal" class="btn">Ok</label>
+    </div>
+  </div>
+</div>
+
   </body>
 </html>

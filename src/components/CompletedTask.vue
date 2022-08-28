@@ -1,21 +1,23 @@
 <template>
    
-    <div  class="flex mb-4 items-center">
+    <div  class="flex justify-between mb-4 items-center">
                 <!-- <p v-if="statusMsg" class="status-msg"> {{ statusMsg }}</p> -->
                 
                 <p v-if="errorMsg"> {{ errorMsg }}</p>
-                <p v-if="!isEditing" class="position w-full text-grey-darkest"> {{ title }}  
-                <!-- no sé si necesito esto -->
-                <span v-if="statusMsg" class="status-msg">
-                    {{ statusMsg }}
-                </span>
-                </p>
-                <input v-else v-model="title" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker"/>
-               
-                <button @click="editTask" class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green border-green hover:bg-green">Edit</button>
-                <button @click="saveTask" class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green border-green hover:bg-green">Save</button>
-                <button @click="isComplete" class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green border-green hover:bg-green">To do</button>
-                <button  @click="deleteTask" class="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red">Remove</button>
+                <div>
+                    <p v-if="!isEditing" @click="editTask" class="position w-full text-grey-200 hover:bg-gray-100"> {{ title }}  
+                    </p>
+                    <input v-else v-model="title" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker hover:bg-gray-100"/>
+                </div>
+                
+
+               <div>
+                    <!-- <button @click="editTask" class="flex-no-shrink p-2  border-2 rounded hover:text-white text-green border-green hover:bg-green">Edit</button> -->
+                    <button @click="saveTask"  class="flex-no-shrink p-2  border-2 border-none"><font-awesome-icon id="my_save_icon" color="#104406" icon="fa-solid fa-floppy-disk" /></button>
+                    <button @click="isComplete" class="flex-no-shrink p-2 border-2 border-none hover:bg-green min-w-fit"><font-awesome-icon icon="fa-solid fa-arrow-rotate-left" id="my_undo_icon" color="#a88c0e"/></button>
+                    <button  @click="deleteTask" class="flex-no-shrink p-2 border-2 border-none" id="my_delete_icon" color="#7a0417"><font-awesome-icon icon="fa-solid fa-trash" /></button>
+               </div>
+                
     </div>
 </template>
 
@@ -78,7 +80,15 @@ export default {
 </script>
 
 <style>
-
+#my_save_icon path {
+    fill:#104406;
+}
+#my_undo_icon path {
+    fill: #a88c0e;
+}
+#my_delete_icon path {
+    fill: #7a0417;
+}
 .position {
     position: relative;
 }

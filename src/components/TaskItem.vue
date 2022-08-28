@@ -1,20 +1,37 @@
 <template>
 
-    <div  class="flex mb-4 items-center">
+    <div  class="flex justify-between mb-4 items-center">
                 <!-- <p v-if="statusMsg" class="status-msg"> {{ statusMsg }}</p> -->
                 
                 <p v-if="errorMsg"> {{ errorMsg }}</p>
-                <p v-if="!isEditing" class="position w-full text-grey-darkest" > {{ title }}  
-                <span v-if="statusMsg" class="status-msg">
-                    {{ statusMsg }}
-                </span>
-                </p>
-                <input v-else v-model="title" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker"/>
+                <div>
+                    <p v-if="!isEditing" @click="editTask" class="position w-full text-grey-darkest hover:bg-gray-100" > {{ title }}  
+                    </p>
+                    <input v-else v-model="title" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker hover:bg-gray-100"/>
+                     <!-- <input v-else v-model="title" type="text" class="input input-bordered input-info w-full max-w-xs"/> -->
+                </div>
                
-                <button @click="editTask" class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green border-green hover:bg-green">Edit</button>
-                <button @click="saveTask" class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green border-green hover:bg-green">Save</button>
-                <button @click="isComplete" class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green border-green hover:bg-green">Done</button>
-                <button  @click="deleteTask" class="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red">Remove</button>
+               <div class="flex justify-end">
+                <!-- <button @click="editTask" class="flex-no-shrink p-2  border-2 rounded hover:text-white text-green border-green hover:bg-green">Edit</button> -->
+                 
+                 
+                <!-- save changes -->
+                <div class="tooltip tooltip-success" data-tip="save">
+                    <button @click="saveTask" class="flex-no-shrink p-2  border-2 border-none"> <font-awesome-icon icon="fa-solid fa-floppy-disk " id="my_save_icon" color="#104406"/> </button>
+                </div>
+                
+                <!-- task completed -->
+                <div class="tooltip tooltip-accent" data-tip="done!">
+                    <button @click="isComplete" class="flex-no-shrink p-2  border-2 border-none" id="my_done_icon" color="#3c9e28"> <font-awesome-icon icon="fa-solid fa-circle-check" /> </button>
+                </div>
+                
+                <!-- delete task -->
+                <div class="tooltip tooltip-error" data-tip="delete">
+                    <button  @click="deleteTask" class="flex-no-shrink p-2  border-2 border-none" id="my_delete_icon" color="#7a0417"><font-awesome-icon icon="fa-solid fa-trash" /></button>
+                </div>
+                
+               </div>
+                
     </div>
 </template>
 
@@ -81,7 +98,15 @@ export default {
 </script>
 
 <style>
-
+#my_save_icon path {
+    fill:#104406;
+}
+#my_done_icon path {
+    fill:#3c9e28;
+}
+#my_delete_icon path {
+    fill:#7a0417;
+}
 .position {
     position: relative;
 }
