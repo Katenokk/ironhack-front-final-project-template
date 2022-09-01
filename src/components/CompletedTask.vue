@@ -7,11 +7,11 @@
                 <div>
                     <p v-if="!isEditing" @click="editTask" class="position w-full text-grey-200 hover:bg-gray-100"> {{ title }}  
                     </p>
-                    <input v-else v-model="title" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker hover:bg-gray-100"/>
+                    <input v-else v-model="title" type="text" maxlength="50" class="shadow appearance-none border rounded  py-2 px-3 mr-4 text-grey-darker hover:bg-gray-100"/>
                 </div>
                 
-
-               <div>
+                <!-- no hace en no-wrap!!!! -->
+               <div class="flex-no-wrap">
                     <!-- <button @click="editTask" class="flex-no-shrink p-2  border-2 rounded hover:text-white text-green border-green hover:bg-green">Edit</button> -->
                     <button @click="saveTask"  class="flex-no-shrink p-2  border-2 border-none"><font-awesome-icon id="my_save_icon" color="#104406" icon="fa-solid fa-floppy-disk" /></button>
                     <button @click="isComplete" class="flex-no-shrink p-2 border-2 border-none hover:bg-green min-w-fit"><font-awesome-icon icon="fa-solid fa-arrow-rotate-left" id="my_undo_icon" color="#a88c0e"/></button>
@@ -36,7 +36,9 @@ export default {
         isEditing: false,
         isDone: true,
         statusMsg: null,
-        errorMsg: null
+        errorMsg: null,
+        
+        
     }
   },
  

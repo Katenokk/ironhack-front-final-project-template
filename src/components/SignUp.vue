@@ -1,42 +1,4 @@
 <template>
-<!-- copia seguridad -->
-  <!-- <div class="w-full flex flex-wrap">
-
-        <div class="w-full md:w-1/2 flex flex-col">
-
-            <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
-                <p class="text-center text-3xl">Welcome to the to-do app!</p>
-                <form class="flex flex-col pt-3 md:pt-8" @submit.prevent="isValid()">
-                    <div class="flex flex-col pt-4">
-                        <label for="email" name="email" class="text-lg">Email</label>
-                        <input required v-model="email" type="email" id="email" placeholder="your@email.com" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
-                    </div>
-    
-                    <div class="flex flex-col pt-4">
-                        <label for="password" class="text-lg">Password</label>
-                        <input required v-model="password" name="password" type="password" id="password" placeholder="Password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
-                    </div>
-                    <div class="flex flex-col pt-4">
-                        <label for="repPassword" class="text-lg">Confirm password</label>
-                        <input required v-model="repeatPassword" name="repeatPassword" type="password" id="repPassword" placeholder="confirm password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
-                    </div>
-                    <p v-if="errorMsg" class="text-red">
-                            {{ errorMsg }}
-                    </p>
-                    <input type="submit" value="Sign Up" class="bg-black  font-bold text-lg hover:bg-gray-700 p-2 mt-8">
-                </form>
-
-            </div>
-
-        </div>
-
-       
-    </div> -->
-
-
-
-
-
 
 <div class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
   <div class="max-w-md w-full space-y-8">
@@ -82,13 +44,23 @@
             </svg>
           </span>
           Sign Up
-          <label for="my-modal" ></label>
+         
         </button>
+
+        
+
       </div>
     </form>
-  <label for="my-modal" class="btn modal-button">meter en sign up</label>
+  
   </div>
 </div>
+
+<div v-if="isSignedUp">
+  <p>
+    Please, confirm your email and then sign in to your account
+  </p>
+</div>
+
 
 </template>
 
@@ -109,39 +81,57 @@ export default {
             password: null,
             repeatPassword: null,
             errorMsg: null,
+            isSignedUp: false,
+            users: []
            
         }
     },
     computed: {
         ...mapStores(useUserStore)
     },
+    // mounted() {
+    //   this.fetchUsers();
+    // },
     methods: {
-        
+      // async fetchUsers() {
+      // const { data, error } = await supabase
+      //   .from("users")
+      //   .select("*") 
+      //   .order("id", { ascending: false }); 
+      // console.log(data);
+      // this.users = data;
+      // },  
+      // async userExists() {
+      //   if(email_confirmed_at in this.userStore.user) {//usar esto en el dashboard para el aviso
+      //     return true;
+      //   }
+      // },  
         async signUp(email, password) {
             this.email = email;
             this.password = password;
             try {
             await this.userStore.signUp(this.email, this.password);
-           
-            router.push({ path: '/auth' }); //tiene que ir a la ventana de sign in despues de crear el usurio
-            this.$router.go(); //refresca
-            
-            
+            this.isSignedUp = true;
+            // router.push({ path: '/auth' }); no redirige!!
+            // this.$router.go(); //refresca
             }
          
             catch(error) {
             console.log(error);
+            this.errorMsg = error.message;
             } 
             //falta otro error?? 
         },
         //comprobaciones entrada datos usuario:
         isValid() {
             if (this.checkEmail(this.email) && this.checkPassword(this.password, this.repeatPassword)) {
-                console.log("todo correcto");
-                this.signUp(this.email, this.password);
-                this.$emit("welcome");
+                
+            this.signUp(this.email, this.password);
+            //this.$emit("welcome"); //llama al evento welcome del Auth
+                
             } else {
-                console.log(this.errorMsg)
+                console.log(this.errorMsg);
+                
             }
 
 

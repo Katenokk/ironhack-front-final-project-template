@@ -2,7 +2,7 @@
   
   <SignIn v-if="!signedIn"/>
   
-  <SignUp v-if="signedIn" @welcome="message"/>
+  <SignUp  v-if="signedIn" @welcome="message"/>
   <!-- shows if the user clicks the "sign up" button -->
   <div v-if="signedIn" class="text-center pt-12 pb-12">
   <p>Already have an account? 
@@ -17,13 +17,13 @@
     </p>
   </div>
 
-  <div v-if="userStore.user" class="toast toast-top toast-start">
+  <!-- <div class="toast toast-top toast-start">
   <div class="alert alert-success">
     <div>
-      <span>{{ welcomeMsg }} mensaje de has recibido un email desparece!! </span>
+      <span>{{ welcomeMsg }} </span>
     </div>
   </div>
-</div>
+</div> -->
 </template>
 
 <script>
@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     message() {
-      this.welcomeMsg = "algo";
+      this.welcomeMsg = "you received an email";//borrar luego?
       console.log(this.welcomeMsg);
     }
   }

@@ -2,13 +2,14 @@
  <Nav/>
  <div class="text-center">
   <h2 v-if="taskStore.loading">Loading...</h2>
-  <div class="mt-4">Welcome to your dashboard <span class="text-purple-600"> {{ userStore.user.email }} </span>  !</div> 
+  <div class="mt-4">Welcome to your dashboard <span class="text-purple-600">  {{ userStore.user.email }} </span>  !</div> 
+  <div>Poner nombre aquí: {{ userInfoStore.first_name }}</div>
  </div>
- 
-  
+
+   
 
 <div class="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans">
-	<div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 xl:max-w-4xl">
+	<div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 xl:max-w-6xl">
         <div class="mb-4">
             <h1 class="text-grey-darkest">Todo List</h1>
             <NewTask/>
@@ -37,8 +38,8 @@
 
          <!-- prueba con divider -->
            <div class="flex flex-col w-full lg:flex-row">
-              <div class="grid flex-grow min-h-fit card bg-base-200 rounded-box place-items-strech p-4">
-                <div>
+              <div class="grid flex-grow lg:w-1/2 min-h-fit card bg-base-200 rounded-box place-items-strech p-4">
+            <div>
             <p class="text-red-400">Pending:</p>
            
             <div class="flex flex-col-reverse">
@@ -51,7 +52,7 @@
 
                 </div> 
               <div class="divider lg:divider-horizontal"></div> 
-              <div class="grid flex-grow min-h-fit card bg-base-200 rounded-box place-items-strech p-4">
+              <div class="grid flex-grow lg:w-1/2  min-h-fit card bg-base-200 rounded-box place-items-strech p-4">
                  <div>
               <p class="text-green-700">Completed:</p>
               <p v-if="taskStore.loading">Loading...</p>
@@ -77,12 +78,14 @@ import CompletedTask from "../components/CompletedTask.vue"
 import router from "../router";
 import { useUserStore } from "../store/user";
 import { useTaskStore } from "../store/task";
+import { useUserInfoStore } from "../store/userInfo";
 
 export default {
   setup() {
     const userStore = useUserStore();
     const taskStore = useTaskStore();
-    return {userStore, taskStore}
+    const userInfoStore = useUserInfoStore();
+    return {userStore, taskStore, userInfoStore}
   },
   components: {
     TaskItem, 
@@ -92,13 +95,15 @@ export default {
   },
   data() {
     return {
-      taskList: null,
-      allCompleted: "Well done! You've completed all your tasks!"
+      //taskList: null,
+      allCompleted: "You don't have any pending tasks :)"
       
     }
   },
   mounted() { 
       this.taskStore.fetchTasks();  // pero funciona!
+      this.userInfoStore.fetchUsersInfo();
+      
    
     },
   methods: {
@@ -133,7 +138,7 @@ export default {
 </script>
 
 <style>
-button {
-  margin-right: 0%; /*no se va a la derecha*/ 
-}
+/* button {
+  margin-right: 0%; 
+} */
 </style>

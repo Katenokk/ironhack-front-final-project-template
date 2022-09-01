@@ -27,17 +27,7 @@ export const useTaskStore = defineStore("tasks", {
       //console.log(JSON.parse(JSON.stringify(this.completedTasks)));
       //this.pendingTasks = this.filterPending(this.tasks);
     },
-    //filtrar tareas completadas:
-    // async filterCompleted(tareas) {
-    // await tareas.filter(t => t.is_complete === true);
-    // console.log(tareas) //proxy con TODAS las tareas
-    // return tareas;
-    // },
-    //filtrar tareas pendientes:
-    // async filterPending(tareas) {
-    //   await tareas.filter(t => t.is_complete === false);
-    //   return tareas;
-    // },
+    
     
     // Hacer POST
     async addTask(taskname, id) {

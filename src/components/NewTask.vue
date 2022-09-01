@@ -27,7 +27,8 @@ export default {
             taskname: "",
             is_complete: false,
             statusMsg: "",
-            errorMsg: ""
+            errorMsg: "",
+            
         
         }
     },
@@ -36,10 +37,15 @@ methods: {
 
     callAddTask() {
          if (this.taskname == null || this.taskname.length === 0) {
-            this.errorMsg = "Please enter a task"; //poner setTimeOut
+            this.errorMsg = "Please enter a task"; 
             setTimeout(() => {this.errorMsg = null}, 1000);
             
-          } else {
+          } 
+          else if (this.taskname.length > 40) {
+            this.errorMsg = "the maximum number of characters is 50";
+            setTimeout(() => {this.errorMsg = ""}, 3000);
+          }         
+          else {
             this.addTask(this.taskname, this.userStore.user.id);
             console.log(this.taskname)
 

@@ -4,17 +4,15 @@
                 <!-- <p v-if="statusMsg" class="status-msg"> {{ statusMsg }}</p> -->
                 
                 <p v-if="errorMsg"> {{ errorMsg }}</p>
-                <div>
-                    <p v-if="!isEditing" @click="editTask" class="position w-full text-grey-darkest hover:bg-gray-100" > {{ title }}  
+                <div class="w-1/2">
+                    <p v-if="!isEditing" @click="editTask" class="position text-grey-darkest hover:bg-gray-100" > {{  title}} 
                     </p>
-                    <input v-else v-model="title" type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker hover:bg-gray-100"/>
-                     <!-- <input v-else v-model="title" type="text" class="input input-bordered input-info w-full max-w-xs"/> -->
+                   
+                    <input v-else v-model="title" maxlength="50" type="text" class="shadow appearance-none border rounded py-2 px-3 text-grey-darker hover:bg-gray-100"/>
                 </div>
                
                <div class="flex justify-end">
-                <!-- <button @click="editTask" class="flex-no-shrink p-2  border-2 rounded hover:text-white text-green border-green hover:bg-green">Edit</button> -->
-                 
-                 
+               
                 <!-- save changes -->
                 <div class="tooltip tooltip-success" data-tip="save">
                     <button @click="saveTask" class="flex-no-shrink p-2  border-2 border-none"> <font-awesome-icon icon="fa-solid fa-floppy-disk " id="my_save_icon" color="#104406"/> </button>
@@ -48,11 +46,11 @@ export default {
   data() {
     return {
         isEditing: false,
-       
         isDone: false,
         isActive: false,
         statusMsg: null,
-        errorMsg: null
+        errorMsg: null,
+        //maxLength: 40
     }
   },
  
