@@ -18,7 +18,7 @@ export const useTaskStore = defineStore("tasks", {
         .from("tasks")
         .select("*") //todos
         .order("id", { ascending: false }); //orden descendente
-      console.log(data);
+      
       this.tasks = data;
       this.loading = false;
       this.completedTasks = data.filter(t => t.is_complete === true);

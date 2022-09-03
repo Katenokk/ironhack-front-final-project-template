@@ -1,19 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-
-    <title>My To Do App</title>
-  </head>
-  <body>
-  
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-    <!-- my modal -->
-    <!-- <input type="checkbox" id="my-modal-5" class="modal-toggle" />
+<template>
+  <!-- modal perfil usuario -->
+  <input type="checkbox" id="my-modal-5" class="modal-toggle" />
 <div class="modal">
   <div class="modal-box w-11/12 max-w-5xl">
     <h3 class="font-bold text-lg">Create your profile</h3>
@@ -46,10 +33,41 @@
     </div>
 
     <div class="modal-action">
-      <label for="my-modal-5" class="btn">Yay!</label>
+      <label for="my-modal-5" class="btn">Back</label>
     </div>
   </div>
-</div> -->
+</div>
+  
+</template>
 
-  </body>
-</html>
+<script>
+export default {
+props: {
+  user_name: String
+},
+data() {
+    return {
+      
+      //user_name: "",
+      user_last_name: "",
+      user_avatar: "",
+      name: "",
+      nombre: "",
+      apellido: "",
+      foto: ""
+    };
+  },
+methods: {
+  updateProfile() {
+    console.log(this.user_name)
+    const usuario = this.user_name;
+    this.$emit("updateProfile", usuario);
+    
+  }
+}
+}
+</script>
+
+<style>
+
+</style>

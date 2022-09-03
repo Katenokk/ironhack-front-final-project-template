@@ -4,11 +4,11 @@
                 <!-- <p v-if="statusMsg" class="status-msg"> {{ statusMsg }}</p> -->
                 
                 <p v-if="errorMsg"> {{ errorMsg }}</p>
-                <div class="w-1/2">
+                <div class="w-full">
                     <p v-if="!isEditing" @click="editTask" class="position text-grey-darkest hover:bg-gray-100" > {{  title}} 
                     </p>
                    
-                    <input v-else v-model="title" maxlength="50" type="text" class="shadow appearance-none border rounded py-2 px-3 text-grey-darker hover:bg-gray-100"/>
+                    <input v-else v-model="title" maxlength="50" type="text" class="w-full shadow appearance-none border rounded py-2 px-3 text-grey-darker hover:bg-gray-100"/>
                 </div>
                
                <div class="flex justify-end">

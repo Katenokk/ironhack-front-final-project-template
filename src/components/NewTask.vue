@@ -41,7 +41,7 @@ methods: {
             setTimeout(() => {this.errorMsg = null}, 1000);
             
           } 
-          else if (this.taskname.length > 40) {
+          else if (this.taskname.length > 50) {
             this.errorMsg = "the maximum number of characters is 50";
             setTimeout(() => {this.errorMsg = ""}, 3000);
           }         
