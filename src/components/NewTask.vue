@@ -5,7 +5,7 @@
                 
                 <input 
                 v-model="taskname"
-                class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker" placeholder="Add new task">
+                class="shadow appearance-none border rounded input input-bordered input-accent w-full py-2 px-3 mr-4 text-grey-darker" placeholder="Add new task">
                 <button @click="callAddTask" class="btn btn-info">Add</button>
             </div>
 </template>

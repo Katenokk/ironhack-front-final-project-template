@@ -17,13 +17,7 @@
     </p>
   </div>
 
-  <!-- <div class="toast toast-top toast-start">
-  <div class="alert alert-success">
-    <div>
-      <span>{{ welcomeMsg }} </span>
-    </div>
-  </div>
-</div> -->
+
 </template>
 
 <script>

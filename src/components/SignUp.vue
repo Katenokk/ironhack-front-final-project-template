@@ -111,6 +111,7 @@ export default {
             this.password = password;
             try {
             await this.userStore.signUp(this.email, this.password);
+            //console.log(user.aud)
             this.isSignedUp = true;
             // router.push({ path: '/auth' }); no redirige!!
             // this.$router.go(); //refresca
@@ -127,7 +128,6 @@ export default {
             if (this.checkEmail(this.email) && this.checkPassword(this.password, this.repeatPassword)) {
                 
             this.signUp(this.email, this.password);
-            //this.$emit("welcome"); //llama al evento welcome del Auth
                 
             } else {
                 console.log(this.errorMsg);
@@ -141,8 +141,8 @@ export default {
             if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
                      return true;
                 }
-                    else {
-                        this.errorMsg ="please enter a valid email";
+                  else {
+                    this.errorMsg ="please enter a valid email";
             }
         },
         checkPassword(password, repeatPassword) {
