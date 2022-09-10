@@ -1,10 +1,7 @@
 <template>
-  <section class="bg-slate-100">
-   
     <AppHeader/>
     <router-view class="app-main" />
     <Footer></Footer>
-  </section>
 </template>
 
 <script setup>
@@ -35,3 +32,14 @@ onMounted(async () => {
 })
 
 </script>
+
+<style>
+#app {
+  /*height: 100%;*/
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #f4f4f4;
+ 
+}  
+</style>

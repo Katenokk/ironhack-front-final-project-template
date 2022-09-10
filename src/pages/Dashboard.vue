@@ -11,8 +11,8 @@
     
             <p class="">Mejor?</p>
         </button> -->
-<!-- tarjeta de perfil -->
-  <div class="w-full h-1/4 bg-grey-100 flex flex-row flex-wrap p-3">
+<!-- tarjeta de perfil , eliminado h-1/4 del contenedor-->
+  <div class="w-full bg-grey-100 flex flex-row flex-wrap p-3">
     <!--  -->
   <div class="mx-auto w-2/3 max-w-6xl">
 <!-- Profile Card -->
@@ -40,9 +40,9 @@
 
 </div>
 
-  <!-- cambiado a items-start xq quedaba mucho espacio h-screen cambiado a h-full -->
+  <!-- cambiado a items-start xq quedaba mucho espacio, eliminado h-full -->
   <div
-    class="h-100 w-full h-full flex items-start justify-center bg-teal-lightest font-sans"
+    class=" w-full flex items-start justify-center bg-teal-lightest font-sans"
   >
     <div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 xl:max-w-6xl">
       <div class="mb-4">

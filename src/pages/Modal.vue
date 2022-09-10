@@ -57,16 +57,18 @@
               />
               <div
                 v-else
+                :src="no_image"
                 class="avatar no-image"
                 :style="{ height: size, width: size }"
               ></div>
 
-              <div :style="{ width: size }">
+              <div :style="{ width: size }" class="pointer">
                 <label class="button primary block" for="single">
-                  {{ uploading ? "Uploading ..." : "Upload" }}
+                  {{ uploading ? "Uploading ..." : "Upload your image" }}
                 </label>
                 <input
-                  style="visibility: hidden; position: absolute"
+                class="pointer"
+                  style="visibility: hidden; position: absolute;"
                   type="file"
                   id="single"
                   accept="image/*"
@@ -112,8 +114,8 @@ export default {
       files: null,
       path: '',
       myPath: "",
-      preview: ""
-
+      preview: "",
+      no_image: "https://t3.ftcdn.net/jpg/02/18/21/86/360_F_218218632_jF6XAkcrlBjv1mAg9Ow0UBMLBaJrhygH.jpg"
     };
   },
   mounted() {
@@ -200,5 +202,9 @@ export default {
     width: 200px;
     height: 200px;
     background-color: rgb(226, 217, 206);
+  }
+  
+  .pointer:hover {
+    cursor: pointer;
   }
 </style>

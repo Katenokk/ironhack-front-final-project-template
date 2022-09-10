@@ -1,6 +1,6 @@
 <template>
 
-<div class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 height-80">
+<div class="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
   <div class="max-w-md w-full space-y-8">
     <div>
       <img class="mx-auto h-12 w-auto" src="https://cdn-icons-png.flaticon.com/512/2883/2883031.png" alt="trisquel">
@@ -173,7 +173,8 @@ export default {
 </script>
 
 <style>
-.height-80 {
-  height: 76vh;
+.footer-bottom {
+  /*height: 85%;*/
+   margin-bottom: 265px;  
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-4/5 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 height-80"
+    class="height-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
   >
     <div class="max-w-md w-full space-y-8">
       <div>
@@ -174,10 +174,9 @@ export default {
 </script>
 
 <style>
-.height-80 {
-  /*height: 80vh; no sirve para nada ahora
-    ??*/
-  margin-bottom: 120px;
+.footer-bottom {
+  /*height: 85%;*/
+   margin-bottom: 300px;  /*no funciona*/ 
 }
 .m-top {
   margin-top: 0;
