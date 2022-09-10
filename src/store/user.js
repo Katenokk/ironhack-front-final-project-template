@@ -44,9 +44,12 @@ export const useUserStore = defineStore("user", {
     //forgot password:
     async forgotPassword(email) {
       const { data, error } = await supabase.auth.api.resetPasswordForEmail(email , {
-        redirectTo: 'http://localhost:3000/reset_pwd/',
+        
+        redirectTo: 'http://localhost:5173/reset_pwd/',
         });
-      if (error) throw error;
+        console.log(data)
+        if (error) throw error;
+
        
 
     },
@@ -56,9 +59,9 @@ export const useUserStore = defineStore("user", {
       if (error) throw error;
       //console.log(error)
       if (data) this.emails = data;
-      console.log(data) //da el array
+      
       const result = data.filter(el => el.email === email);
-      console.log(result.length)
+   
       if (result.length >0) {
         return true;
       }

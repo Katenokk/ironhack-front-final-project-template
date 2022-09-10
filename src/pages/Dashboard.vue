@@ -3,20 +3,18 @@
   <Modal @updateProfile="updateProfile" 
   :user_name="user_name"
   :user_last_name="user_last_name"
-  :user_avatar="user_avatar"
+  :myPath="avatar_url"
   />
   <h2 v-if="taskStore.loading">Loading...</h2>
-
-  <button type="Primary Block" class="flex flex-row items-center content-center justify-start gap-1 h-sm px-2 py-1 rounded-xl text-white bg-blue-500 active:text-gray-100 active:bg-blue-600 active:ring-0 focus:ring-offset-2 focus:ring">
+  <!-- <button type="Primary Block" class="flex flex-row items-center content-center justify-start gap-1 h-sm px-2 py-1 rounded-xl text-white bg-blue-500 active:text-gray-100 active:bg-blue-600 active:ring-0 focus:ring-offset-2 focus:ring">
     <font-awesome-icon icon="fa-solid fa-user-plus" />
     
             <p class="">Mejor?</p>
-        </button>
+        </button> -->
 <!-- tarjeta de perfil -->
-
-  <div class="w-screen h-1/4 bg-white flex flex-row flex-wrap p-3">
-    <!-- <label for="my-modal-5" class="btn modal-button">Edit profile</label> -->
-  <div class="mx-auto w-2/3">
+  <div class="w-full h-1/4 bg-grey-100 flex flex-row flex-wrap p-3">
+    <!--  -->
+  <div class="mx-auto w-2/3 max-w-6xl">
 <!-- Profile Card -->
 <div class="rounded-lg shadow-lg bg-gray-400 w-full flex flex-row flex-wrap p-3 antialiased" style="
   background-image: url('https://images.unsplash.com/photo-1652466380685-c552233a941a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80');
@@ -25,11 +23,12 @@
   background-blend-mode: multiply;
 ">
   <div class="md:w-1/3 w-full">
-    <img class="rounded-lg shadow-lg antialiased" :src="`${this.foto}`" alt="profile image">  
+    <img v-if="avatar_url" class="rounded-lg shadow-lg antialiased" :src="avatar_url" alt="profile image">  
+    <img v-else class="rounded-lg shadow-lg antialiased" :src="default_img" alt="profile image">  
   </div>
   <div class="md:w-2/3 w-full px-3 flex flex-row flex-wrap">
     <div class="w-full text-right text-gray-700 font-semibold relative pt-3 md:pt-0">
-      <div class="text-2xl text-white leading-tight"> {{ this.nombre }} {{ this.apellido }}</div>
+      <div class="text-2xl text-white leading-tight"> {{ user_name }} {{ user_last_name }}</div>
       <div class="text-normal text-gray-300 hover:text-gray-400 cursor-pointer"><span class="border-b border-dashed border-gray-500 pb-1"></span></div>
       <label for="my-modal-5" class="btn modal-button md:absolute bottom-0 right-0">Edit profile</label>
       <!-- <div class="text-sm text-gray-300 hover:text-gray-400 cursor-pointer md:absolute pt-3 md:pt-0 bottom-0 right-0">Last Seen: <b>2 days ago</b></div> -->
@@ -38,28 +37,12 @@
 </div>
 <!-- End Profile Card -->
   </div>
+
 </div>
 
-  <!-- datos del usuario -->
-  <!-- <div class="text-center">
-    <h2 v-if="taskStore.loading">Loading...</h2>
-    <label for="my-modal-5" class="btn modal-button">Edit profile</label>
-    <div class="mt-4">
-      Welcome to your dashboard
-      <span class="text-purple-600"> {{ this.nombre }} &nbsp; </span>
-      <span class="text-green-500"> {{ this.apellido }}</span>
-      <br />
-       <span> {{ userStore.user.email }} </span> ! 
-    </div>
-    <div class="w-20 h-20 m-auto">
-      <img :src="`${this.foto}`" alt="mi imagen!" />
-    </div>
-  </div> -->
-
-
-  <!-- cambiado a items-start xq quedaba mucho espacio -->
+  <!-- cambiado a items-start xq quedaba mucho espacio h-screen cambiado a h-full -->
   <div
-    class="h-100 w-full h-screen flex items-start justify-center bg-teal-lightest font-sans"
+    class="h-100 w-full h-full flex items-start justify-center bg-teal-lightest font-sans"
   >
     <div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 xl:max-w-6xl">
       <div class="mb-4">
@@ -129,7 +112,7 @@ import { useTaskStore } from "../store/task";
 import { useUserInfoStore } from "../store/userInfo"; //de momento no lo uso
 import { supabase } from "../supabase";
 import Modal from "./Modal.vue";
-import { createCacheExpression } from "@vue/compiler-core";
+
 
 
 export default {
@@ -150,30 +133,23 @@ export default {
 props: {
   user_name: String,
   user_last_name: String,
-  user_avatar: String
+  user_avatar: String,
+  myPath: String
 },
   data() {
     return {
       allCompleted: "You don't have any pending tasks :)",
       user_name: "",
       user_last_name: "",
-      user_avatar: "",
-      name: "",
-      nombre: "",
-      apellido: "",
-      foto: "",
-      
+      avatar_url: "",
+      default_img: "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg"
     };
   },
   mounted() {
     this.taskStore.fetchTasks();
     this.getProfile();
-    this.insertEmail();
+    this.insertEmail();//ya está en otro sitio??
     this.userStore.userExist();
-    
-    // console.log(this.userStore.emails[0].email)
-    
-    //this.userInfoStore.fetchUsersInfo();
   },
   methods: {
     async signOut() {
@@ -189,20 +165,19 @@ props: {
         this.taskStore.deleteTask(t.id)
       );
     },
-    async updateProfile(usuario, surname, afoto) {
+    async updateProfile(user_name, user_last_name, myPath) {
       try {
         
         const user = supabase.auth.user();
-        //const email = this.userStore.user.email;
+     
         const updates = {
           id: user.id,
-          username: usuario,
-          //email: email,
-          avatar_url: afoto,
-          user_lastname: surname,
+          username: user_name,
+          avatar_url: myPath,
+          user_lastname: user_last_name,
           updated_at: new Date(),
         };
-        console.log(usuario)
+       
         let { data, error } = await supabase.from("profiles").upsert(updates);
         console.log(data);
         if (error) {
@@ -211,6 +186,10 @@ props: {
       } catch (error) {
         alert(error.message);
       }
+      finally {
+        this.getProfile(); //si no, no se actualiza al cerrar el modal
+      }
+      
     },
     async getProfile() {
       try {
@@ -224,16 +203,13 @@ props: {
 
         if (error && status !== 406) {
           throw error;
+          console.log(error)
         }
 
         if (data) {
           this.user_name = data.username;
-          this.nombre = data.username;
           this.user_last_name = data.user_lastname;
-          this.apellido = data.user_lastname;
-          this.user_avatar = data.avatar_url;
-          this.foto = data.avatar_url;
-         
+          this.avatar_url = data.avatar_url;
         }
       } catch (error) {
         alert(error.message);
@@ -257,23 +233,10 @@ props: {
     
 
 
-
-    // async fetchTasks() { // esta función nunca ha hecho nada!!! se llama desde el store
-    //   try {
-    //     await this.taskStore.fetchTasks();
-    //     this.tasks = tasks;
-    //     console.log(tasks)
-    //   }
-    //   catch(error) {
-    //       console.log(`Error: ${error}`);
-    //       }
-    // }
   },
 };
 </script>
 
 <style>
-/* button {
-  margin-right: 0%; 
-} */
+
 </style>

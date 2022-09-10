@@ -1,6 +1,6 @@
 <template>
 
-<div class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+<div class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 height-80">
   <div class="max-w-md w-full space-y-8">
     <div>
       <img class="mx-auto h-12 w-auto" src="https://cdn-icons-png.flaticon.com/512/2883/2883031.png" alt="trisquel">
@@ -51,7 +51,11 @@
 
       </div>
     </form>
-  
+    <div class="text-center pb-12">
+  <p>Already have an account? 
+    <button  @click="isSignedIn" class="underline font-semibold">click here to sign in</button>
+    </p>
+  </div>
   </div>
 </div>
 
@@ -109,14 +113,15 @@ export default {
         async signUp(email, password) {
             this.email = email;
             this.password = password;
+            const res = await this.userStore.userExist(this.email);
             try {
+            if(res === false) { //si ese email no esta registrado
             await this.userStore.signUp(this.email, this.password);
-            //console.log(user.aud)
-            this.isSignedUp = true;
-            // router.push({ path: '/auth' }); no redirige!!
-            // this.$router.go(); //refresca
+            this.isSignedUp = true; //no redirige
+            } else {
+              this.errorMsg = "el usuario ya está registrado"
             }
-         
+            }
             catch(error) {
             console.log(error);
             this.errorMsg = error.message;
@@ -155,6 +160,10 @@ export default {
             } else {
                 return true;
             }
+        },
+        //llama a Auth para cambiar el v-if a y mostrar signIn
+          isSignedIn() {
+          this.$emit("isSignedIn")
         }
         
     }
@@ -164,5 +173,7 @@ export default {
 </script>
 
 <style>
-
+.height-80 {
+  height: 76vh;
+}
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
+    class="h-4/5 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 height-80"
   >
     <div class="max-w-md w-full space-y-8">
       <div>
@@ -99,9 +99,16 @@
             </span>
             Sign in
           </button>
-         
         </div>
       </form>
+      <div class="text-center pb-12">
+        <p>
+          Don't have an account?
+          <button @click="isSignedIn" class="underline font-semibold">
+            click here to sign up
+          </button>
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -126,10 +133,7 @@ export default {
   // computed: {
   //     ...mapStores(useUserStore)
   // },
-  mounted() {
-    
-    //this.userExist();
-  },
+  mounted() {},
   methods: {
     async signIn(email, password) {
       this.email = email;
@@ -137,7 +141,6 @@ export default {
       try {
         await this.userStore.signIn(this.email, this.password);
         router.push({ path: "/" });
-        
       } catch (error) {
         console.log(error.message);
         this.errorMsg = error.message;
@@ -145,40 +148,38 @@ export default {
     },
 
     async forgotPassword(email) {
-      //if (email de user esta en profiles?)
       try {
         await this.userStore.forgotPassword(this.email);
-        await this.userExist(this.email);
         //si el usuario  existe
-        const res = await this.userExist();
-        console.log(res)
-        if(res === true ) {
+        const res = await this.userStore.userExist(this.email);
+        console.log(res);
+        if (res) {
           router.push({ path: "/reset_pwd" }); //va a la vista ResetPassword
-        } else if(res === false) {
+        } else {
           this.errorMsg = "The user doesn't exist";
-          console.log(this.errorMsg)
+          console.log(this.errorMsg);
         }
-        
       } catch (error) {
         console.log(error);
         this.errorMsg = error.message;
       }
     },
-    //saber si un email ya esta registrado en profiles
-    async userExist() {
-      const res = await this.userStore.userExist(this.email);
-      // await this.userStore.userExist(this.email);
-      
-      if (res === true) {
-      
-        return true;
-      }
-      else {
-        return false;
-      }
+    //llama a Auth para cambiar el v-if a y mostrar signUp
+    isSignedIn() {
+      this.$emit("isSignedIn")
+     
     }
   },
 };
 </script>
 
-<style></style>
+<style>
+.height-80 {
+  /*height: 80vh; no sirve para nada ahora
+    ??*/
+  margin-bottom: 120px;
+}
+.m-top {
+  margin-top: 0;
+}
+</style>

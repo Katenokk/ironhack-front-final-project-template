@@ -10,14 +10,9 @@
       </p> 
       
     </div>
-    <form class="flex flex-col  mt-8 space-y-6" @submit.prevent="isValid()">
+    <form class="flex flex-col  mt-8 space-y-6" @submit.prevent="signUp()">
       <input type="hidden" name="remember" value="true">
       <div class="flex flex-col gap-4 rounded-md shadow-sm -space-y-px">
-        <div>
-          <label for="password" class="sr-only">Old password</label>
-          <input required v-model="password" name="password" type="password" id="password" placeholder="old password"  autocomplete="current-password" class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
-        </div>
- 
         <div>
           <label for="password" class="sr-only">New password</label>
           <input required v-model="newPassword" name="password" type="password" id="password" placeholder="new password"  autocomplete="current-password" class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
@@ -60,21 +55,41 @@
 
 <script>
 import { useUserStore } from "../store/user";
+import router from "../router";
+
 export default {
   setup() {
     const userStore = useUserStore();
+    
     return {userStore}
   },
   data() {
     return {
-      password: null,
       newPassword: null,
       repeatPassword: null,
       errorMsg: null
       }
   },
   methods: {
-    
+    async signUp() {
+      //this.newPassword = password;
+      //this.userStore.user.email = email;
+      //console.log(email);
+      try {
+        if(this.newPassword === this.repeatPassword) {
+        //сconseguir el puto access token de la url
+        router.push({ path: '/' });
+        
+      } else {
+        this.errorMsg = "Please type the correct password"
+      }
+      }
+      catch(error) {
+        console.log(error)
+        this.errorMessage = error.message;
+      }
+      
+    }
   }
 }
 </script>

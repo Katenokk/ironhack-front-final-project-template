@@ -1,6 +1,6 @@
 <template>
    
-    <div  class="flex justify-between mb-4 items-center">
+    <div  class="flex justify-between mb-4 items-center ">
                 <!-- <p v-if="statusMsg" class="status-msg"> {{ statusMsg }}</p> -->
                 
                 <p v-if="errorMsg"> {{ errorMsg }}</p>
