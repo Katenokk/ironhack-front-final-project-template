@@ -14,7 +14,7 @@
             <p
               class="w-80 text-center text-sm mb-8 font-semibold text-gray-700 tracking-wide cursor-pointer"
             >
-              Edit your profile
+              Add your personal info:
             </p>
           </div>
           <form @submit.prevent="updateProfile" class="space-y-4">
@@ -83,7 +83,7 @@
                 type="submit"
                 class="py-3 w-64 text-xl text-white bg-purple-400 rounded-2xl"
               >
-                Create profile
+                Save
               </button>
             </div>
           </form>
@@ -120,8 +120,7 @@ export default {
   mounted() {
     //this.downloadImage();
     this.getPreview();
-    // this.src = this.preview;
-    // console.log(this.preview)
+    
   },
   methods: {
     updateProfile() {

@@ -1,7 +1,6 @@
 <template>
    
     <div  class="flex justify-between mb-4 items-center ">
-                <!-- <p v-if="statusMsg" class="status-msg"> {{ statusMsg }}</p> -->
                 
                 <p v-if="errorMsg"> {{ errorMsg }}</p>
                 <div class="w-full">
@@ -42,10 +41,7 @@ export default {
     return {
         isEditing: false,
         isDone: true,
-        statusMsg: null,
         errorMsg: null,
-        
-        
     }
   },
  

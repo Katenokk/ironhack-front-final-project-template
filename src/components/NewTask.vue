@@ -1,6 +1,6 @@
 <template>
-<p v-if="statusMsg"> {{ statusMsg }}</p>
-<p v-if="errorMsg"> {{ errorMsg }}</p>
+<!-- <p v-if="statusMsg"> {{ statusMsg }}</p> -->
+<p v-if="errorMsg" class="text-red-700"> {{ errorMsg }}</p>
    <div class="flex mt-4">
                 
                 <input 
@@ -23,13 +23,10 @@ export default {
   },
     data() {
         return {
-           
             taskname: "",
             is_complete: false,
             statusMsg: "",
             errorMsg: "",
-            
-        
         }
     },
 
@@ -42,7 +39,7 @@ methods: {
             
           } 
           else if (this.taskname.length > 50) {
-            this.errorMsg = "the maximum number of characters is 50";
+            this.errorMsg = "The maximum number of characters is 50!";
             setTimeout(() => {this.errorMsg = ""}, 3000);
           }         
           else {

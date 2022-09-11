@@ -11,7 +11,7 @@
           <img src="https://startupvalencia.org/wp-content/uploads/2021/09/Ironhack.png" alt="ironhack logo"/>
         </div>
       </label>
-      <ul tabindex="0" class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
+      <!-- <ul tabindex="0" class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
         <li>
           <a class="justify-between">
             Profile
@@ -20,7 +20,7 @@
         </li>
         <li><a>Settings</a></li>
         <li><a>Logout</a></li>
-      </ul>
+      </ul> -->
     </div>
   </div>
 </div>

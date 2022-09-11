@@ -137,7 +137,6 @@ import CompletedTask from "../components/CompletedTask.vue";
 import router from "../router";
 import { useUserStore } from "../store/user";
 import { useTaskStore } from "../store/task";
-import { useUserInfoStore } from "../store/userInfo"; //de momento no lo uso
 import { supabase } from "../supabase";
 import Modal from "./Modal.vue";
 
@@ -145,8 +144,7 @@ export default {
   setup() {
     const userStore = useUserStore();
     const taskStore = useTaskStore();
-    const userInfoStore = useUserInfoStore();
-    return { userStore, taskStore, userInfoStore };
+    return { userStore, taskStore };
   },
 
   components: {
@@ -175,7 +173,7 @@ export default {
   mounted() {
     this.taskStore.fetchTasks();
     this.getProfile();
-    this.upsertEmail(); //nose ejecuta
+    this.upsertEmail(); 
     this.userStore.userExist();
   },
   methods: {
@@ -240,24 +238,24 @@ export default {
       }
     },
 
-    //inserta el email de cada usuario a la tabla "profiles"
-    async insertEmail() {
-      try {
-        const user = supabase.auth.user();
-        const email = this.userStore.user.email;
-        let { data, error } = await supabase
-          .from("profiles")
-          .update({ email: email })
-          .eq("id", user.id);
-        if (error) {
-          throw error;
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    },
+    
+    // async insertEmail() {
+    //   try {
+    //     const user = supabase.auth.user();
+    //     const email = this.userStore.user.email;
+    //     let { data, error } = await supabase
+    //       .from("profiles")
+    //       .update({ email: email })
+    //       .eq("id", user.id);
+    //     if (error) {
+    //       throw error;
+    //     }
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
 
-    //prueba con upsert
+    //inserta el email de cada usuario a la tabla "profiles"
     async upsertEmail() {
       console.log("ejecutando upsert")
       try {

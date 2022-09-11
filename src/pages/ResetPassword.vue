@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <div class="min-h-full flex items-start justify-center py-12 px-4 sm:px-6 lg:px-8">
   <div class="max-w-md w-full space-y-8">
     <div>
       <img class="mx-auto h-12 w-auto" src="https://cdn-icons-png.flaticon.com/512/2883/2883031.png" alt="trisquel">
@@ -10,7 +10,7 @@
       </p> 
       
     </div>
-    <form class="flex flex-col  mt-8 space-y-6" @submit.prevent="signUp()">
+    <form class="flex flex-col  mt-8 space-y-6" >
       <input type="hidden" name="remember" value="true">
       <div class="flex flex-col gap-4 rounded-md shadow-sm -space-y-px">
         <div>
@@ -70,28 +70,8 @@ export default {
       errorMsg: null
       }
   },
-  methods: {
-    async signUp() {
-      //this.newPassword = password;
-      //this.userStore.user.email = email;
-      //console.log(email);
-      try {
-        if(this.newPassword === this.repeatPassword) {
-        //сconseguir el puto access token de la url
-        router.push({ path: '/' });
-        
-      } else {
-        this.errorMsg = "Please type the correct password"
-      }
-      }
-      catch(error) {
-        console.log(error)
-        this.errorMessage = error.message;
-      }
-      
-    }
-  }
 }
+  
 </script>
 
 <style>

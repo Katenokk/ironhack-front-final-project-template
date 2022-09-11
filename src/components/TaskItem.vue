@@ -50,7 +50,6 @@ export default {
         isActive: false,
         statusMsg: null,
         errorMsg: null,
-        //maxLength: 40
     }
   },
  
@@ -82,9 +81,7 @@ export default {
                
                 this.isDone = !this.isDone; //cambia el is_complete a true
                 
-                await this.taskStore.changeTask(this.isDone, this.taskId);
-                
-                
+                await this.taskStore.changeTask(this.isDone, this.taskId); 
             }
             catch(error) {
                 console.log(error);
