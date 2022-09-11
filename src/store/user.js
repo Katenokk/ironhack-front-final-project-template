@@ -20,6 +20,9 @@ export const useUserStore = defineStore("user", {
       const { user, error } = await supabase.auth.signUp({
         email: email,
         password: password,
+      },
+      {
+        redirectTo: "https://velvety-gnome-ddd067.netlify.app/auth"
       });
       if (error) throw error;
       if (user) this.user = user;
@@ -30,7 +33,7 @@ export const useUserStore = defineStore("user", {
       const { user, error } = await supabase.auth.signIn({
         email: email,
         password: password,
-      });
+      },);
       if (error) throw error;
       if (user) this.user = user;
       
@@ -45,7 +48,7 @@ export const useUserStore = defineStore("user", {
     async forgotPassword(email) {
       const { data, error } = await supabase.auth.api.resetPasswordForEmail(email , {
         
-        redirectTo: 'http://localhost:5173/reset_pwd/',
+        redirectTo: 'https://velvety-gnome-ddd067.netlify.app/reset_pwd/',
         });
         console.log(data)
         if (error) throw error;

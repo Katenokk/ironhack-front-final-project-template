@@ -119,7 +119,7 @@ export default {
     };
   },
   mounted() {
-    this.downloadImage();
+    //this.downloadImage();
     this.getPreview();
     // this.src = this.preview;
     // console.log(this.preview)
