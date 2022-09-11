@@ -44,8 +44,11 @@
           <div
             class="w-full text-right text-gray-700 font-semibold relative pt-3 md:pt-0"
           >
-            <div class="text-2xl text-white leading-tight">
+            <div v-if="user_name || user_last_name" class="text-2xl text-white leading-tight">
               {{ user_name }} {{ user_last_name }}
+            </div>
+            <div v-else class="text-2xl text-white leading-tight">
+              User name
             </div>
             <div
               class="text-normal text-gray-300 hover:text-gray-400 cursor-pointer"

@@ -57,7 +57,7 @@
               />
               <div
                 v-else
-                :src="no_image"
+                
                 class="avatar no-image"
                 :style="{ height: size, width: size }"
               ></div>
@@ -115,7 +115,6 @@ export default {
       path: '',
       myPath: "",
       preview: "",
-      no_image: "https://t3.ftcdn.net/jpg/02/18/21/86/360_F_218218632_jF6XAkcrlBjv1mAg9Ow0UBMLBaJrhygH.jpg"
     };
   },
   mounted() {
@@ -201,7 +200,10 @@ export default {
   .no-image {
     width: 200px;
     height: 200px;
-    background-color: rgb(226, 217, 206);
+    /*background-color: rgb(226, 217, 206);*/
+    background-image: url("https://t3.ftcdn.net/jpg/02/18/21/86/360_F_218218632_jF6XAkcrlBjv1mAg9Ow0UBMLBaJrhygH.jpg");
+    background-repeat: no-repat;
+    background-size: cover;
   }
   
   .pointer:hover {

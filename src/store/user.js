@@ -22,7 +22,7 @@ export const useUserStore = defineStore("user", {
         password: password,
       },
       {
-        redirectTo: "https://velvety-gnome-ddd067.netlify.app/auth"
+        redirectTo: "https://velvety-gnome-ddd067.netlify.app"
       });
       if (error) throw error;
       if (user) this.user = user;
@@ -47,8 +47,7 @@ export const useUserStore = defineStore("user", {
     //forgot password:
     async forgotPassword(email) {
       const { data, error } = await supabase.auth.api.resetPasswordForEmail(email , {
-        
-        redirectTo: 'https://velvety-gnome-ddd067.netlify.app/reset_pwd/',
+        redirectTo: 'reset_pwd',
         });
         console.log(data)
         if (error) throw error;
