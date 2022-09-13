@@ -34,7 +34,6 @@
             </svg>
           </span>
         </div>
-
       </div>
       <form class="flex flex-col mt-6 space-y-6" @submit.prevent="isValid()">
         <input type="hidden" name="remember" value="true" />
@@ -162,9 +161,8 @@ export default {
   computed: {
     ...mapStores(useUserStore),
   },
-  
+
   methods: {
-    
     async signUp(email, password) {
       this.email = email;
       this.password = password;
@@ -200,18 +198,25 @@ export default {
         return true;
       } else {
         this.errorMsg = "please enter a valid email";
+        setTimeout(() => {this.errorMsg = null}, 2000);
       }
     },
     checkPassword(password, repeatPassword) {
       this.password = password;
       this.repeatPassword = repeatPassword;
-      if (password.length < 6) {
-        //añadir regex para letras y números? y arreglar el mostacho
-        this.errorMsg = "the password must have at least 6 characters";
-      } else if (password !== repeatPassword) {
-        this.errorMsg = "please type the correct password";
+      //al menos una min. una may. y un número, de 6 a 20 cc
+      const passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+      if (password.match(passw)) {
+        if (password !== repeatPassword) {
+          this.errorMsg = "Please type the correct password";
+          setTimeout(() => {this.errorMsg = null}, 2000);
+        } else {
+          return true;
+        }
       } else {
-        return true;
+        this.errorMsg = "The password must have at least...."
+        setTimeout(() => {this.errorMsg = null}, 2000);
+        return false;
       }
     },
     //llama a Auth para cambiar el v-if a y mostrar signIn
@@ -222,6 +227,4 @@ export default {
 };
 </script>
 
-<style>
-
-</style>
+<style></style>

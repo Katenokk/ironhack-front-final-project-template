@@ -70,8 +70,8 @@
             />
           </div>
         </div>
-
-        <div class="flex items-center justify-between">
+        <!-- para cuando haga la funcion resetPassword -->
+        <!-- <div class="flex items-center justify-between">
           <div class="flex items-center">
             <input
               id="remember-me"
@@ -82,9 +82,9 @@
             <label for="remember-me" class="ml-2 block text-sm text-gray-900">
               Remember me
             </label>
-          </div>
+          </div> -->
 
-          <div class="text-sm">
+          <!-- <div class="text-sm">
             <a
               href="#"
               @click="forgotPassword"
@@ -92,8 +92,8 @@
             >
               Forgot your password?
             </a>
-          </div>
-        </div>
+          </div> -->
+        <!-- </div> -->
 
         <div>
           <button

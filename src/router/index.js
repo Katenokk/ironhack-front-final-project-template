@@ -18,7 +18,11 @@ const routes = [
     path: "/reset_pwd",
     name: "reset_pwd",
     component: ResetPassword
-  }
+  },
+  {
+    path: "/*",
+    component: 404
+    },
 ];
 
 const router = createRouter({

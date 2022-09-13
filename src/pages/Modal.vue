@@ -63,17 +63,18 @@
               ></div>
 
               <div :style="{ width: size }" class="pointer">
-                <label class="button primary block" for="single">
-                  {{ uploading ? "Uploading ..." : "Upload your image" }}
+                <label class="button primary block rounded-full mt-1 py-2 px-4 bg-violet-400 text-violet-700 hover:file:bg-purple-100" for="single">
+                  {{ uploading ? "Uploading ..." : "Upload image" }}
                 </label>
                 <input
-                class="pointer"
+                  
                   style="visibility: hidden; position: absolute;"
                   type="file"
                   id="single"
                   accept="image/*"
                   @change="uploadAvatar"
                   :disabled="uploading"
+                  file:rounded-full file:bg-violet-50
                 />
               </div>
             </div>
@@ -205,7 +206,7 @@ export default {
     background-size: cover;
   }
   
-  .pointer:hover {
-    cursor: pointer;
+  .upload-btn {
+    background-color: aqua;
   }
 </style>
