@@ -22,7 +22,7 @@
           role="alert"
         >
           <span class="block sm:inline"> {{ errorMsg }} </span>
-          <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+          <!-- <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
             <svg
               class="fill-current h-6 w-6 text-red-500"
               role="button"
@@ -34,7 +34,7 @@
                 d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"
               />
             </svg>
-          </span>
+          </span> -->
         </div>
 
       </div>
@@ -44,31 +44,40 @@
       >
         <input type="hidden" name="remember" value="true" />
         <div class="flex flex-col gap-4 rounded-md shadow-sm -space-y-px">
-          <div>
-            <label for="email" name="email" class="sr-only">Email</label>
+          <div class="relative">
+            
             <input
               v-model="email"
+              title="your email"
               type="email"
               id="email"
               placeholder="your@email.com"
               autocomplete="email"
               required
-              class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              class=" peer placeholder-transparent 
+              appearance-none  block w-full px-3 py-2 border-b-2 border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
             />
+            <label for="email" name="email" class="absolute left-3 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Email</label>
+            <!-- label: class="sr-only" -->
           </div>
-          <div>
-            <label for="password" class="sr-only">Password</label>
+
+          <div class="relative">
+            
             <input
               required
               v-model="password"
-              name="password"
+              title="password"
+              
               type="password"
               id="password"
               placeholder="Password"
               autocomplete="current-password"
-              class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              class="peer placeholder-transparent
+              appearance-none block w-full px-3 py-2 border-b-2 border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
             />
+            <label for="password" name="password" class="absolute left-3 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Password</label>
           </div>
+
         </div>
         <!-- para cuando haga la funcion resetPassword -->
         <!-- <div class="flex items-center justify-between">
@@ -160,7 +169,7 @@ export default {
         this.errorMsg = error.message;
       }
     },
-
+    //no aplica
     async forgotPassword(email) {
       try {
         await this.userStore.forgotPassword(this.email);

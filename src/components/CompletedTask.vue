@@ -4,7 +4,7 @@
                 
                 <p v-if="errorMsg"> {{ errorMsg }}</p>
                 <div class="w-full">
-                    <p v-if="!isEditing" @click="editTask" class="position w-full text-grey-200 hover:bg-gray-100"> {{ title }}  
+                    <p v-if="!isEditing" @click="editTask" class="position w-full line-through text-grey-200 hover:bg-gray-100"> {{ title }}  
                     </p>
                     <input v-else v-model="title" type="text" maxlength="50" class="w-full shadow appearance-none border rounded  py-2 px-3 mr-4 text-grey-darker hover:bg-gray-100"/>
                 </div>
@@ -97,10 +97,5 @@ export default {
 .position {
     position: relative;
 }
-.status-msg {
-    position: absolute;
-    top: 1em;
-    left: 0;
-    color: green;
-}
+
 </style>

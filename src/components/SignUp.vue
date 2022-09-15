@@ -20,7 +20,7 @@
           role="alert"
         >
           <span class="block sm:inline"> {{ errorMsg }} </span>
-          <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+          <!-- <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
             <svg
               class="fill-current h-6 w-6 text-red-500"
               role="button"
@@ -32,53 +32,64 @@
                 d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"
               />
             </svg>
-          </span>
+          </span> -->
         </div>
       </div>
       <form class="flex flex-col mt-6 space-y-6" @submit.prevent="isValid()">
         <input type="hidden" name="remember" value="true" />
         <div class="flex flex-col gap-4 rounded-md shadow-sm -space-y-px">
-          <div>
-            <label for="email" name="email" class="sr-only">Email</label>
+          <div class="relative">
+            
             <input
               v-model="email"
+              title="your email"
               type="email"
               id="email"
               placeholder="your@email.com"
               autocomplete="email"
               required
-              class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              class="peer placeholder-transparent
+              appearance-none relative block w-full px-3 py-2 border-b-2 border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
             />
+            <label for="email" name="email" class="absolute left-3 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-4 peer-focus:text-gray-600 peer-focus:text-sm">Email</label>
           </div>
-          <div>
-            <label for="password" class="sr-only">Password</label>
+
+          <div class="relative">
+           
             <input
               required
               v-model="password"
+              title="password"
               name="password"
               type="password"
               id="password"
               placeholder="Password"
               autocomplete="current-password"
-              class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              class="peer placeholder-transparent
+              appearance-none relative block w-full px-3 py-2 border-b-2 border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
             />
+            <label for="password" name="password" class="absolute left-3 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-4 peer-focus:text-gray-600 peer-focus:text-sm">Password</label>
           </div>
-          <div>
-            <label for="repPassword" class="sr-only">Confirm password</label>
+
+          <div class="relative">
+            
             <input
               required
               v-model="repeatPassword"
+              title="confirm password"
               name="repeatPassword"
               type="password"
               id="repPassword"
               placeholder="Confirm password"
-              class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              class="peer placeholder-transparent
+              appearance-none relative block w-full px-3 py-2 border-b-2 border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
             />
+            <label for="repPassword" name="repPassword" class="absolute left-3 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-4 peer-focus:text-gray-600 peer-focus:text-sm">Confirm password</label>
           </div>
         </div>
 
         <div class="flex items-center justify-between">
-          <!-- rellenar con algo? -->
+          
         </div>
 
         <div>
@@ -179,7 +190,7 @@ export default {
         console.log(error);
         this.errorMsg = error.message;
       }
-      //falta otro error??
+      
     },
     //comprobaciones entrada datos usuario:
     isValid() {
@@ -197,8 +208,8 @@ export default {
       if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
         return true;
       } else {
-        this.errorMsg = "please enter a valid email";
-        setTimeout(() => {this.errorMsg = null}, 2000);
+        this.errorMsg = "Please enter a valid email";
+        setTimeout(() => {this.errorMsg = null}, 3000);
       }
     },
     checkPassword(password, repeatPassword) {
@@ -209,13 +220,13 @@ export default {
       if (password.match(passw)) {
         if (password !== repeatPassword) {
           this.errorMsg = "Please type the correct password";
-          setTimeout(() => {this.errorMsg = null}, 2000);
+          setTimeout(() => {this.errorMsg = null}, 3000);
         } else {
           return true;
         }
       } else {
-        this.errorMsg = "The password must have at least...."
-        setTimeout(() => {this.errorMsg = null}, 2000);
+        this.errorMsg = "The password must have at least 1 uppercase letter and 1 number."
+        setTimeout(() => {this.errorMsg = null}, 3000);
         return false;
       }
     },

@@ -1,7 +1,7 @@
 <template>
 <SignIn v-if="!signedIn" @isSignedIn="isSignedIn"/>
  
-<SignUp  v-if="signedIn" @welcome="message" @isSignedIn="isSignedIn"/>
+<SignUp  v-if="signedIn"  @isSignedIn="isSignedIn"/>
   
 
 </template>
@@ -23,16 +23,10 @@ export default {
   data() {
     return {
       signedIn: false,
-      welcomeMsg: ""
     }
   },
   methods: {
-    message() {
-      this.welcomeMsg = "you received an email";//borrar luego?
-      console.log(this.welcomeMsg);
-    },
     isSignedIn() {
-    console.log("llama a Auth")
     this.signedIn = !this.signedIn;
   }
   },

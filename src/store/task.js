@@ -23,9 +23,6 @@ export const useTaskStore = defineStore("tasks", {
       this.loading = false;
       this.completedTasks = data.filter(t => t.is_complete === true);
       this.pendingTasks = data.filter(t => t.is_complete === false);
-      
-      //console.log(JSON.parse(JSON.stringify(this.completedTasks)));
-      //this.pendingTasks = this.filterPending(this.tasks);
     },
     
     
@@ -60,7 +57,7 @@ export const useTaskStore = defineStore("tasks", {
     async changeTask(isDone, taskId) {
       await supabase
       .from("tasks")
-      .update({ is_complete: isDone }) //??????
+      .update({ is_complete: isDone }) 
       .match({ id: taskId })
       await this.fetchTasks()
 

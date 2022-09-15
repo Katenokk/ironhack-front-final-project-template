@@ -40,7 +40,7 @@
               v-model="user_avatar"
             /> -->
 
-            <div>
+            <div class="text-center">
               <img
                 v-if="src"
                 :src="src"
@@ -62,8 +62,9 @@
                 :style="{ height: size, width: size }"
               ></div>
 
-              <div :style="{ width: size }" class="pointer">
-                <label class="button primary block rounded-full mt-1 py-2 px-4 bg-violet-400 text-violet-700 hover:file:bg-purple-100" for="single">
+              <div :style="{ width: size }" class="mx-auto">
+                <p v-if="errorMsg" class="text-red-500">  {{ errorMsg }}</p>
+                <label class="button primary block rounded-full mt-1 py-2 px-4 text-center bg-gray-300 text-violet-700 hover:bg-purple-100" for="single">
                   {{ uploading ? "Uploading ..." : "Upload image" }}
                 </label>
                 <input
@@ -116,6 +117,7 @@ export default {
       path: '',
       myPath: "",
       preview: "",
+      errorMsg:""
     };
   },
   mounted() {
@@ -142,7 +144,7 @@ export default {
         console.log(this.path[1]);
         const myPath = "https://xmhajjrmgutujqbewfmp.supabase.co/storage/v1/object/public/avatars/"+this.path[1];
         this.myPath = myPath;
-        console.log(myPath)
+        //console.log(myPath)
       } catch (error) {
         console.log(error.message);
       }
@@ -157,8 +159,8 @@ export default {
         const file = this.files[0];
         const fileExt = file.name.split(".").pop();
         const fileName = `${Math.random()}.${fileExt}`;
-        console.log('file name: ' + fileName)
-        const filePath = `${fileName}`;//es lo mismo¿?
+        //console.log('file name: ' + fileName)
+        const filePath = `${fileName}`;
 
         let { data, error: uploadError } = await supabase.storage
           .from("avatars")
@@ -166,10 +168,11 @@ export default {
 
         if (uploadError) throw uploadError;
         this.path = data.Key.split('/');//de aquí sale myPath, el [1] de data
-        console.log(this.path)
+        //console.log(this.path)
         
       } catch (error) {
-        console.log(error.message)
+        console.log(error.message);
+        this.errorMsg = error.message;
       } finally {
         this.uploading = false;
         this.downloadImage();

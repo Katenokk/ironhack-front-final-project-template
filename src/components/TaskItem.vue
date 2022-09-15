@@ -15,7 +15,7 @@
                
                 <!-- save changes -->
                 <div class="tooltip tooltip-success" data-tip="save">
-                    <button @click="saveTask" class="flex-no-shrink p-2  border-2 border-none"> <font-awesome-icon icon="fa-solid fa-floppy-disk " id="my_save_icon" color="#104406"/> </button>
+                    <button @click="saveTask" class="flex-no-shrink p-2  border-2 border-none"> <font-awesome-icon icon="fa-solid fa-floppy-disk" id="my_save_icon" color="#104406"/> </button>
                 </div>
                 
                 <!-- task completed -->
@@ -105,10 +105,5 @@ export default {
 .position {
     position: relative;
 }
-.status-msg {
-    position: absolute;
-    top: 1em;
-    left: 0;
-    color: green;
-}
+
 </style>

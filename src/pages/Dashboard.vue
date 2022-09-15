@@ -7,11 +7,7 @@
     :myPath="avatar_url"
   />
   <h2 v-if="taskStore.loading">Loading...</h2>
-  <!-- <button type="Primary Block" class="flex flex-row items-center content-center justify-start gap-1 h-sm px-2 py-1 rounded-xl text-white bg-blue-500 active:text-gray-100 active:bg-blue-600 active:ring-0 focus:ring-offset-2 focus:ring">
-    <font-awesome-icon icon="fa-solid fa-user-plus" />
-    
-            <p class="">Mejor?</p>
-        </button> -->
+  
   <!-- tarjeta de perfil , eliminado h-1/4 del contenedor-->
   <div class="w-full bg-grey-100 flex flex-row flex-wrap p-3">
     <!--  -->
@@ -267,7 +263,7 @@ export default {
           email: email,
         };
         let { data, error } = await supabase.from("profiles").upsert(updates);
-        console.log("insertando")
+        
 
         if (error) {
           throw error;
